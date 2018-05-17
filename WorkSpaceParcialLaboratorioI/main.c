@@ -35,6 +35,7 @@ case 1:
     index=altapropietario(propietario,TAM);
     if(index==0){
         printf("propietario Agregado\n");
+        propietarioMostrarListado(propietario, TAM);
     }
     else{
         printf("Error\n");
@@ -42,42 +43,45 @@ case 1:
     break;
 case 2:
     propietarioMostrarListado(propietario, TAM);
-    autosMostrarListado(autos, TAM);
     index=bajaPropietario(propietario,TAM, autos);
     if(index==0){
-        printf("propietario dada de baja\n");
+        printf("\n propietario dado de baja\n");
+         propietarioMostrarListado(propietario, TAM);
+         autosMostrarListado(autos, TAM);
     }
     else{
-        printf("la propietario no ha sido dada de baja\n");
+        printf("\n ningun propietario  ha sido dado de baja\n");
     }
     break;
 case 3:
     propietarioMostrarListado(propietario, TAM);
     index=modificarPropietario(propietario, TAM);
     if(index==0){
-        printf("propietario modificado\n");
+        printf("\n propietario modificado\n");
+        propietarioMostrarListado(propietario, TAM);
     }
     else{
-        printf("la propietario no ha sido modificado\n");
+        printf("\n ningun propietarioha sido modificado\n");
     }
     break;
 case 4:
-    index=altaAuto(autos,TAM);
+    index=altaAuto(autos,propietario,TAM);
     if(index==0){
-        printf("auto ingresado\n");
+        printf("\n auto ingresado\n");
+        autosMostrarListado(autos, TAM);
     }
     else{
-        printf("Error\n");
+        printf("\n no se ha ingresado ningun auto\n");
     }
     break;
 case 5:
     autosMostrarListado(autos, TAM);
     index=bajaAutos(autos, TAM, propietario);
      if(index==0){
-        printf("auto egresado\n");
+        printf("\n auto egresado\n");
     }
     else{
-        printf("el auto no ha egresado\n");
+        printf("\n el auto no ha egresado\n");
     }
     break;
 case 6:

@@ -7,6 +7,10 @@
 #define TAM 20
 #define OCUPADO 1
 #define LIBRE 0
+#define ALPHA_ROMEO 1
+#define FERRARI 2
+#define AUDI 3
+#define OTRO 4
 
 float recaudado1;
 float recaudado2;
@@ -26,12 +30,14 @@ int i;
   }
 
 int id[4]= {1,2,3,4};
-char nombre[4][60]={"Juan","Luis","Maria","Jose"};
+char nombre[4][30]={"Juan","Luis","Maria","Jose"};
+char apellido[4][30]={"-----","-----","-----","-----"};
 char tarjeta[4][10]={"111-111","222-222","333-333","444-444"};
 char direccion[4][50]={"mitre","urquiza","belgrano","alsina"};
 
  for(i=0; i<4;i++){
   strcpy(propietario[i].nombre, nombre[i]);
+  strcpy(propietario[i].apellido, apellido[i]);
   strcpy(propietario[i].NumeroDeTarjeta,tarjeta[i]);
   propietario[i].idPropietario=id[i];
   strcpy(propietario[i].direccion, direccion[i]);
@@ -68,7 +74,9 @@ indice=buscarLibre(propietario,cant);
    id = propietarioSiguienteId(propietario,cant);
    propietario[indice].idPropietario=id;
    printf("\n Ingrese nombre:\n ");
-   propietario[indice].nombre[60]=validarnombre(propietario[indice].nombre);
+   propietario[indice].nombre[30]=validarnombre(propietario[indice].nombre);
+   printf("\n Ingrese apellido:\n ");
+   propietario[indice].apellido[30]=validarnombre(propietario[indice].apellido);
    printf(" Ingrese numero de tarjeta:\n ");
    propietario[indice].NumeroDeTarjeta[10]=validarNumerochar(propietario[indice].NumeroDeTarjeta);
    printf(" Ingrese una Direccion:\n ");
@@ -119,15 +127,15 @@ for(j=0;j<cant;j++){
   horas=devolverHorasEstadia();
 
   if(cant > 0 && autos != NULL){
-   if( strcmp(autos[j].marca, "ALPHA ROMEO")==0){
+   if( autos[j].marca== ALPHA_ROMEO){
     aPagar=150*horas;
     recaudado1=recaudado1+aPagar;
    }
-   else if( strcmp(autos[j].marca, "FERRARI")==0){
+   else if( autos[j].marca== FERRARI){
     aPagar=175*horas;
     recaudado2=recaudado2+aPagar;
    }
-   else if( strcmp(autos[j].marca, "AUDI")==0){
+   else if( autos[j].marca== AUDI){
     aPagar=200*horas;
     recaudado3=recaudado3+aPagar;
    }
@@ -179,7 +187,7 @@ aux=validarNumero(aux);
 
 void propietarioMostrarUno(ePropietarios propietario){
 
-    printf(" %s\t          %d\t      %s\t      %s\n",propietario.nombre ,propietario.idPropietario ,propietario.NumeroDeTarjeta, propietario.direccion);
+    printf(" %s\t\t               %s\t\t          %d\t\t      %s\t\t      %s\n",propietario.nombre ,propietario.apellido,propietario.idPropietario ,propietario.NumeroDeTarjeta, propietario.direccion);
 }
 
 
@@ -187,7 +195,8 @@ void propietarioMostrarUno(ePropietarios propietario){
 void propietarioMostrarListado(ePropietarios propietario[],int cant){
     int i;
     if(cant > 0 && propietario != NULL){
-     printf("\n NOMBRE:\t               NUMERO DE ID\t         NUMERO DE TARJETA:\t          DIRECCION: \n");
+     printf("\n NOMBRE:\t              APELLIDO:\t          NUMERO DE ID\t          NUMERO DE TARJETA:\t     DIRECCION: \n");
+     printf("------------------------------------------------------------------------------------------------------------------\n");
         for(i=0; i<cant; i++){
             if(propietario[i].estado==OCUPADO){
              fflush(stdin);
@@ -197,10 +206,11 @@ void propietarioMostrarListado(ePropietarios propietario[],int cant){
  }
 }
 
-/**------------------------------------------------------------------------------------------------------------------------------*/
+
 
 void inicializarAutos( eAutos autos[],int cant){
 int i;
+int j;
 
    if(cant > 0 && autos != NULL){
     for(i=0; i<cant; i++){
@@ -216,25 +226,46 @@ int i;
 
     int idauto[10]= {1,2,3,4,5,6,7,8,9,10};
     char patente[10][20]= {"AAA","CCC","DDD","BBB","ZZZ","III","HHH","EEE","FFF","GGG"};
-    char marca[10][15]= {"ALPHA ROMEO","AUDI","AUDI","FERRARI","FERRARI","AUDI","AUDI","OTRO","AUDI","ALPHA ROMEO"};
+    int marca[10]= {ALPHA_ROMEO,AUDI,AUDI,FERRARI,FERRARI,AUDI,AUDI,OTRO,AUDI,ALPHA_ROMEO};
     int propietarioid[10]= {2,1,2,1,3,3,4,1,4,3};
 
         for(i=0; i<10;i++){
         autos[i].idAuto=idauto[i];
         strcpy(autos[i].patente,patente[i]);
         autos[i].propietario =propietarioid[i];
-        strcpy(autos[i].marca, marca[i]);
+        autos[i].marca= marca[i];
         autos[i].estado=OCUPADO;
     }
+
+    int marca1[10]= {1,1,2,3,2,2,3,4,1,1};
+    float importe[10]= {100,200,100,300,100,100,200,200,100,100};
+
+    for(j=0; j<10;j++){
+      if( marca1[j] == ALPHA_ROMEO){
+       recaudado1=recaudado1+importe[j];
+      }
+      else if( marca1[j] == FERRARI){
+       recaudado2=recaudado2+importe[j];
+      }
+      else if( marca1[j] == AUDI){
+       recaudado3=recaudado3+importe[j];
+      }
+      else{
+       recaudado4=recaudado4+importe[j];
+      }
+      Totalrecaudado=recaudado1+recaudado2+recaudado3+recaudado4;
+     }
+
  }
 }
 
 
 
-int altaAuto (eAutos autos[], int cant){
+int altaAuto (eAutos autos[],ePropietarios propietario[], int cant){
 int index=-1;
 int indice;
 int id;
+int i;
 
 indice=buscarLibreAutos(autos,cant);
 
@@ -246,9 +277,29 @@ indice=buscarLibreAutos(autos,cant);
     printf("\n Ingrese patente:\n ");
     autos[indice].patente[10]=validarnombre(autos[indice].patente);
     printf(" Ingrese id del propietario:\n ");
+
+    do{
+    fflush(stdin);
     autos[indice].propietario=validarNumero(autos[indice].propietario);
+
+    for(i=0;i<cant;i++){
+        if(propietario[i].estado==OCUPADO){
+        if(autos[indice].propietario==propietario[i].idPropietario){
+         index=2;
+        }
+        else{
+         index=-4;
+        }
+     }
+    }
+    if(index==-4){
+        printf("solo puede usarse el id de un propietario ingresado con anterioridad\n ");
+    }
+    }while(index==-4);
+
     printf(" ingrese la marca del auto\n ");
-    autos[indice].marca[20]=validarnombre(autos[indice].marca);
+    printf(" 1=ALPHA ROMEO  2=FERRARI  3=AUDI  4=OTRO\n\n");
+    autos[indice].marca=validarNumero(autos[indice].marca);
     printf(" id del auto: %d\n", autos[indice].idAuto);
     autos[indice].estado= OCUPADO;
     index=0;
@@ -316,7 +367,7 @@ return index;
 
 
 void autosMostrarUno(eAutos autos){
-printf(" %d\t          %s\t      %s\t      %d\n",autos.idAuto ,autos.patente ,autos.marca, autos.propietario);
+printf(" %d\t           %s\t\t\t     %d\t\t      %d\n",autos.idAuto ,autos.patente ,autos.marca, autos.propietario);
 }
 
 
@@ -325,7 +376,8 @@ void autosMostrarListado(eAutos autos[],int cant){
 int i;
 
     if(cant > 0 && autos != NULL){
-     printf("\n ID AUTO\t               PATENTE\t          MARCA\t          ID DEL PROPIETARIO \n");
+     printf("\n ID AUTO\t  PATENTE\t          MARCA\t          ID DEL PROPIETARIO \n");
+     printf("-----------------------------------------------------------------------------\n");
       for(i=0; i<cant; i++){
        if(autos[i].estado==OCUPADO){
         fflush(stdin);
@@ -353,20 +405,21 @@ void tarifaaPagar(eAutos autos[], int cant, int id, ePropietarios propietario[])
 int horas;
 float aPagar;
 int i;
-char nombre[60];
+char nombre[30];
+char apellido[30];
 
 horas=devolverHorasEstadia();
 
  if(cant > 0 && autos != NULL){
-  if( strcmp(autos[id].marca, "ALPHA ROMEO")==0){
-   aPagar=150*horas;
-   recaudado1=recaudado1+aPagar;
+   if( autos[id].marca == ALPHA_ROMEO){
+    aPagar=150*horas;
+    recaudado1=recaudado1+aPagar;
    }
-   else if( strcmp(autos[id].marca, "FERRARI")==0){
+   else if( autos[id].marca == FERRARI){
     aPagar=175*horas;
     recaudado2=recaudado2+aPagar;
    }
-   else if( strcmp(autos[id].marca, "AUDI")==0){
+   else if( autos[id].marca == AUDI){
     aPagar=200*horas;
     recaudado3=recaudado3+aPagar;
    }
@@ -379,12 +432,15 @@ horas=devolverHorasEstadia();
    for(i=0;i<20;i++){
     if(propietario[i].idPropietario==autos[id].propietario){
      strcpy(nombre, propietario[i].nombre);
+     strcpy(apellido, propietario[i].apellido);
     }
    }
-
-printf("\n NOMBRE DE PROPIETARIO:               PATENTE DE AUTO:            MARCA:          VALOR DE ESTADIA:\n %s\t          %s\t      %s\t       %.2f\t\n", nombre , autos[id].patente, autos[id].marca, aPagar);
   }
- }
+
+printf("\n NOMBRE DE PROPIETARIO:\t APELLIDO DE PROPIETARIO:\t PATENTE DE AUTO:\t MARCA:\t\t VALOR DE ESTADIA:\n");
+printf("--------------------------------------------------------------------------------------\n");
+printf("\t%s\t\t\t %s\t\t %d\t\t %.2f\t\n\n", nombre ,apellido, autos[id].patente, autos[id].marca, aPagar);
+}
 
 
 
@@ -416,7 +472,7 @@ for(i=0;i<cant;i++){
   printf(" %s \n", propietario[i].nombre);
    for(j=0;j<cant;j++){
     if(autos[j].propietario==propietario[i].idPropietario && autos[j].estado==OCUPADO){
-     printf(" PATENTE: %s -- MARCA: %s  \n",autos[j].patente, autos[j].marca);
+     printf(" PATENTE: %s -- MARCA: %d  \n",autos[j].patente, autos[j].marca);
     }
    }
   }
@@ -431,8 +487,8 @@ int j;
 for(j=0;j<cant;j++){
  if(propietario[j].estado==OCUPADO){
   for(i=0;i<cant;i++){
-   if(autos[i].propietario==propietario[j].idPropietario && strcmp(autos[i].marca,"AUDI")==0){
-    printf("\n ID: %d\n NOMBRE: %s\n TARJETA: %s\n DIRECCION: %s\n", propietario[j].idPropietario, propietario[j].nombre, propietario[j].NumeroDeTarjeta, propietario[j].direccion);
+   if(autos[i].propietario==propietario[j].idPropietario && autos[i].marca==AUDI){
+    printf("\n ID: %d\n NOMBRE: %s\n APELLIDO: %s\n TARJETA: %s\n DIRECCION: %s\n", propietario[j].idPropietario, propietario[j].nombre,propietario[j].apellido, propietario[j].NumeroDeTarjeta, propietario[j].direccion);
     break;
     }
    }
@@ -449,7 +505,7 @@ int j;
 int k;
 int l;
 char auxNombre[10];
-char auxMarca[20];
+int auxMarca;
 int auxPropietario;
 int auxId;
 
@@ -461,9 +517,9 @@ for(i=0;i<cant-1;i++){
     strcpy(autos[j].patente, autos[i].patente);
     strcpy(autos[i].patente, auxNombre);
 
-    strcpy(auxMarca, autos[j].marca);
-    strcpy(autos[j].marca, autos[i].marca);
-    strcpy(autos[i].marca, auxMarca);
+    auxMarca = autos[j].marca;
+    autos[j].marca= autos[i].marca;
+    autos[i].marca= auxMarca;
 
     auxId=autos[j].idAuto;
     autos[j].idAuto=autos[i].idAuto;
@@ -481,18 +537,10 @@ for(k=0;k<20;k++){
     if(autos[k].estado==OCUPADO){
      for(l=0;l<cant;l++){
       if(autos[k].propietario == propietario[l].idPropietario && propietario[l].estado==OCUPADO){
-       printf("\n  ID DE AUTO: %d\n PATENTE: %s\n MARCA: %s\n PROPIETARIO: %s \n \n ", autos[k].idAuto, autos[k].patente, autos[k].marca, propietario[l].nombre);
+       printf("\n  ID DE AUTO: %d\n PATENTE: %s\n MARCA: %d\n PROPIETARIO: %s \n \n ", autos[k].idAuto, autos[k].patente, autos[k].marca, propietario[l].nombre);
        break;
       }
      }
     }
    }
 }
-
-/**------------------------------------------------------------------------------------------------------------------------------*/
-
-
-/**egresos
-    int marca[]= {1,1,2,3,2,2,3,4,1,1};
-    float importe[]= {100,200,100,300,100,100,200,200,100,100};
-*/

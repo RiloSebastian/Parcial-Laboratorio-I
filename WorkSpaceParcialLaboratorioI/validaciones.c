@@ -10,7 +10,7 @@
 #define LIBRE 0
 
 char validarnombre(char input[]){
-char aux[60];
+char aux[30];
 int i;
 int j=0;
 int retorno;
@@ -35,8 +35,9 @@ do{
  }while(retorno!=0);
 
 strcpy(input,aux);
-return input[60];
+return input[30];
 }
+
 
 
 char validarNumerochar(char numero1[]){
@@ -68,6 +69,7 @@ do{
 strcpy(numero1,numAux);
 return numero1[10];
 }
+
 
 
 int validarNumero(int numero){

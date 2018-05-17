@@ -1,10 +1,10 @@
 #ifndef FUNCIONES_H_INCLUDED
 #define FUNCIONES_H_INCLUDED
 
-
 typedef struct
 {
-char nombre[60];
+char nombre[30];
+char apellido[30];
 int idPropietario;
 char NumeroDeTarjeta[10];
 char direccion[50];
@@ -16,7 +16,7 @@ typedef struct
 {
     int idAuto;
     char patente[10];
-    char marca[20];
+    int marca;
     int propietario;
     int estado;
 
@@ -33,9 +33,8 @@ void propietarioMostrarListado(ePropietarios propietario[],int cant);
 void propietarioMostrarPorId(ePropietarios propietario[], eAutos autos[], int cant);
 void PropietarioMostrarAudi(ePropietarios propietario[], eAutos autos[], int cant);
 
-
 void inicializarAutos(eAutos autos[],int cant);
-int altaAuto (eAutos autos[], int cant);
+int altaAuto (eAutos autos[],ePropietarios propietario[], int cant);
 int bajaAutos(eAutos autos[], int cant, ePropietarios propietario[]);
 int buscarLibreAutos(eAutos autos[], int cant);
 int autosSiguienteId(eAutos autos[],int cant);

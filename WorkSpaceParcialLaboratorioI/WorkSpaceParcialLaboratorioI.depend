@@ -23,7 +23,7 @@
 	"funciones.h"
 	"validaciones.h"
 
-1526510333 source:c:\users\sebas\desktop\parcial-entregar-master\workspaceparciallaboratorioi\validaciones.c
+1526522008 source:c:\users\sebas\desktop\parcial-entregar-master\workspaceparciallaboratorioi\validaciones.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -32,11 +32,11 @@
 	"funciones.h"
 	"validaciones.h"
 
-1526498554 c:\users\sebas\desktop\parcial-entregar-master\workspaceparciallaboratorioi\funciones.h
+1526524226 c:\users\sebas\desktop\parcial-entregar-master\workspaceparciallaboratorioi\funciones.h
 
 1526505735 c:\users\sebas\desktop\parcial-entregar-master\workspaceparciallaboratorioi\validaciones.h
 
-1526498036 source:c:\users\sebas\desktop\parcial-entregar-master\workspaceparciallaboratorioi\main.c
+1526524149 source:c:\users\sebas\desktop\parcial-entregar-master\workspaceparciallaboratorioi\main.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -44,7 +44,7 @@
 	"funcionesAutos.h"
 	"validaciones.h"
 
-1526508177 source:c:\users\sebas\desktop\parcial-entregar-master\workspaceparciallaboratorioi\funciones.c
+1526522284 source:c:\users\sebas\desktop\parcial-entregar-master\workspaceparciallaboratorioi\funciones.c
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
