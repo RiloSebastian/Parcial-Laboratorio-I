@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "funciones.h"
-#include "funcionesAutos.h"
 #include "validaciones.h"
 #define TAM 20
 #define OCUPADO 1
